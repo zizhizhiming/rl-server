@@ -1,9 +1,6 @@
 import mmap
 import ctypes
 import time
-import random
-from ctypes import wintypes, windll, WinError, byref
-from ctypes import c_size_t, c_void_p
 import tensorflow as tf
 import threading
 import numpy as np
@@ -14,7 +11,6 @@ import tensorflow_probability as tfp
 import argparse
 import os
 import posix_ipc
-import struct
 
 STATE_DIMENTION = 7
 LOCAL_BUFFER_SIZE = 256
@@ -288,7 +284,6 @@ class RLAgent:
 def print_error(action):
     """打印Windows API错误信息"""
     error_code = ctypes.GetLastError()
-    print(f"[Python] 错误 ({action}): 错误码 {error_code} - {WinError(error_code)}")
 
 def force_reload_structure(address,structure_type):
     buffer = (ctypes.c_byte * ctypes.sizeof(structure_type)).from_address(address)
